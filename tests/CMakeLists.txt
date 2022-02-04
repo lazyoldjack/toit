@@ -54,9 +54,6 @@ add_custom_target(
 
 include(fail.cmake)
 
-option(TEST_TOITRUN "The toit.run executable used for testing")
-option(TEST_TOITC "The toit.compile executable used for testing")
-
 foreach(file ${TOIT_TESTS})
   if("${file}" IN_LIST TOIT_SKIP_TESTS)
     continue()
