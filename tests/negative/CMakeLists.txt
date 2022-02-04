@@ -56,7 +56,7 @@ foreach(file ${TOIT_TESTS})
     TARGET ${generate_gold}
     COMMAND ${CMAKE_COMMAND}
         -DUPDATE_GOLD=true
-        "-DTOITVM="${TEST_TOITRUN}"
+        "-DTOITVM=${TEST_TOITRUN}"
         "-DTEST=${relative}"
         "-DGOLD=${gold_file}"
         "-DLIB_DIR=${lib_dir}"
