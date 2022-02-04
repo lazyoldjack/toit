@@ -29,7 +29,7 @@ foreach(file ${MINUS_S_TESTS})
   add_test(
     NAME ${test_name}
     COMMAND ${CMAKE_COMMAND}
-        -DTOITVM="${TEST_TOITRUN}"
+        "-DTOITVM=${TEST_TOITRUN}"
         -DTEST=${relative}
         -DGOLD=${gold_file}
         -DTMP=${CMAKE_BINARY_DIR}/tmp
@@ -48,7 +48,7 @@ foreach(file ${MINUS_S_TESTS})
     TARGET ${generate_gold}
     COMMAND ${CMAKE_COMMAND}
         -DUPDATE_GOLD=true
-        -DTOITVM="${TEST_TOITRUN}"
+        "-DTOITVM=${TEST_TOITRUN}"
         -DTEST=${relative}
         -DGOLD=${gold_file}
         -DTMP=${CMAKE_BINARY_DIR}/tmp
