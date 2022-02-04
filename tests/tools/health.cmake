@@ -45,7 +45,7 @@ function (add_health_test PATH)
   add_test(
     NAME "${TEST_NAME}"
     COMMAND ${CMAKE_COMMAND}
-        -DTOITC=$<TARGET_FILE:toit.compile>
+        "-DTOITC=${TEST_TOITC}"
         "-DTEST=${RELATIVE}"
         "-DGOLD=${GOLD}"
         "-DLIB_DIR=${LIB_DIR}"
@@ -66,7 +66,7 @@ function (add_health_test PATH)
     TARGET ${generate_gold}
     COMMAND ${CMAKE_COMMAND}
         -DUPDATE_GOLD=true
-        -DTOITC=$<TARGET_FILE:toit.compile>
+        "-DTOITC=${TEST_TOITC}"
         "-DTEST=${RELATIVE}"
         "-DGOLD=${GOLD}"
         "-DLIB_DIR=${LIB_DIR}"

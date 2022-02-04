@@ -32,7 +32,7 @@ foreach(file ${TOIT_TESTS})
   add_test(
     NAME ${test_name}
     COMMAND ${CMAKE_COMMAND}
-        -DTOITVM=$<TARGET_FILE:toit.run>
+        "-DTOITVM=${TEST_TOITRUN}"
         "-DTEST=${relative}"
         "-DGOLD=${gold_file}"
         "-DLIB_DIR=${lib_dir}"
@@ -56,7 +56,7 @@ foreach(file ${TOIT_TESTS})
     TARGET ${generate_gold}
     COMMAND ${CMAKE_COMMAND}
         -DUPDATE_GOLD=true
-        -DTOITVM=$<TARGET_FILE:toit.run>
+        "-DTOITVM="${TEST_TOITRUN}"
         "-DTEST=${relative}"
         "-DGOLD=${gold_file}"
         "-DLIB_DIR=${lib_dir}"

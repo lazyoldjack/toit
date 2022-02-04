@@ -20,7 +20,7 @@ foreach(dir ${PACKAGE_LOCK_TESTS})
   set(test1 "${test_prefix}/test.toit")
   add_test(
     NAME ${test1}
-    COMMAND $<TARGET_FILE:toit.run> ${test1}
+    COMMAND "${TEST_TOITRUN}" ${test1}
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
     )
   set_tests_properties(${test1} PROPERTIES TIMEOUT 40)
@@ -28,7 +28,7 @@ foreach(dir ${PACKAGE_LOCK_TESTS})
   set(test2 "${test_prefix}")
   add_test(
     NAME ${test2}
-    COMMAND $<TARGET_FILE:toit.run> ${CMAKE_CURRENT_SOURCE_DIR}/absolute_pkg.toit $<TARGET_FILE:toit.run> ${test_prefix}
+    COMMAND "${TEST_TOITRUN}" ${CMAKE_CURRENT_SOURCE_DIR}/absolute_pkg.toit "${TEST_TOITRUN}" ${test_prefix}
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
     )
   set_tests_properties(${test2} PROPERTIES TIMEOUT 40)

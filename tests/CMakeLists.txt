@@ -54,6 +54,9 @@ add_custom_target(
 
 include(fail.cmake)
 
+option(TEST_TOITRUN "The toit.run executable used for testing")
+option(TEST_TOITC "The toit.compile executable used for testing")
+
 foreach(file ${TOIT_TESTS})
   if("${file}" IN_LIST TOIT_SKIP_TESTS)
     continue()
@@ -62,7 +65,7 @@ foreach(file ${TOIT_TESTS})
     NAME ${file}
     # We add 3 arguments to all test-calls.
     # They are only used for tests that deal with arguments.
-    COMMAND $<TARGET_FILE:toit.run> ${file} "foo" "bar" "gee"
+    COMMAND "${TEST_TOITRUN}" ${file} "foo" "bar" "gee"
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
     )
   set_tests_properties(${file} PROPERTIES TIMEOUT ${DEFAULT_TIMEOUT})
@@ -72,7 +75,7 @@ endforeach()
 foreach(file ${TOIT_FORCE_TESTS})
   add_test(
     NAME ${file}
-    COMMAND $<TARGET_FILE:toit.run> --force ${file}
+    COMMAND "${TEST_TOITRUN}" --force ${file}
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
     )
   set_tests_properties(${file} PROPERTIES TIMEOUT ${DEFAULT_TIMEOUT})
@@ -82,7 +85,7 @@ foreach(file ${TOIT_NO_BOOT_TESTS})
   add_test(
     NAME ${file}
     # Assumes that `none` doesn't exist.
-    COMMAND $<TARGET_FILE:toit.run> -b none ${file}
+    COMMAND "${TEST_TOITRUN}" -b none ${file}
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
     )
   set_tests_properties(${file} PROPERTIES TIMEOUT ${DEFAULT_TIMEOUT})
@@ -91,7 +94,7 @@ endforeach()
 foreach(file ${TOIT_COMPILER_TESTS})
   add_test(
     NAME ${file}
-    COMMAND $<TARGET_FILE:toit.run> ${file} $<TARGET_FILE:toit.run>
+    COMMAND "${TEST_TOITRUN}" ${file} "${TEST_TOITRUN}"
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
     )
   set_tests_properties(${file} PROPERTIES TIMEOUT ${DEFAULT_TIMEOUT})
@@ -100,14 +103,14 @@ endforeach()
 set(PREEMPT_ALOT_TEST "tests/json_test.toit")
 add_test(
   NAME "${PREEMPT_ALOT_TEST}-PREEMPT_ALOT"
-  COMMAND $<TARGET_FILE:toit.run> -Xpreemptalot ${PREEMPT_ALOT_TEST}
+  COMMAND "${TEST_TOITRUN}" -Xpreemptalot ${PREEMPT_ALOT_TEST}
   WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
   )
 
 foreach(file ${TOIT_SLOW_TESTS})
   add_test(
     NAME ${file}
-    COMMAND $<TARGET_FILE:toit.run> ${file}
+    COMMAND "${TEST_TOITRUN}" ${file}
     CONFIGURATIONS slow
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
     )

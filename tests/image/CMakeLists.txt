@@ -44,8 +44,8 @@ foreach(input ${INPUT})
     NAME "${input}"
     COMMAND "${CMAKE_COMMAND}"
         "-DSNAP=${snap}"
-        "-DTOITVM=$<TARGET_FILE:toit.run>"
-        "-DTOITC=$<TARGET_FILE:toit.compile>"
+        "-DTOITVM=${TEST_TOITRUN}"
+        "-DTOITC=${TEST_TOITC}"
         "-DSNAPSHOT_TO_IMAGE=${TOIT_SDK_SOURCE_DIR}/tools/snapshot_to_image.toit"
         "-DASM=${CMAKE_ASM_COMPILER}"
         "-DRUN_IMAGE=$<TARGET_FILE:toit_run_image>"
@@ -63,9 +63,9 @@ foreach(file ${S2I_TESTS})
 
   add_test(
     NAME "${file}"
-    COMMAND "$<TARGET_FILE:toit.run>" "${file}"
+    COMMAND "${TEST_TOITRUN}" "${file}"
         "${snap}"
-        "$<TARGET_FILE:toit.run>"
+        "${TEST_TOITRUN}"
         "${TOIT_SDK_SOURCE_DIR}/tools/snapshot_to_image.toit"
     WORKING_DIRECTORY "${TOIT_SDK_SOURCE_DIR}"
     )

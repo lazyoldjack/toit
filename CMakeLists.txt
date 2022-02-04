@@ -34,7 +34,14 @@ set(TOITPKG_BIN "${CMAKE_BINARY_DIR}/sdk/bin/toit.pkg${CMAKE_EXECUTABLE_SUFFIX}"
 
 if (NOT ${TOIT_IS_CROSS})
   set(TOITC "$<TARGET_FILE:toit.compile>")
+  set(TOITRUN "$<TARGET_FILE:toit.run>")
   set(TOITPKG "${TOITPKG_BIN}")
+  if (NOT DEFINED TEST_TOITC)
+    set(TEST_TOITC ${TOITC} CACHE)
+  endif()
+  if (NOT DEFINED TEST_TOITRUN)
+    set(TEST_TOITRUN ${TOITRUN} CACHE)
+  endif()
 endif()
 
 string(TIMESTAMP BUILD_DATE "%Y-%m-%dT%H:%M:%SZ" UTC)

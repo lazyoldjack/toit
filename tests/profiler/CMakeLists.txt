@@ -23,7 +23,7 @@ foreach(profiler_test ${PROFILER_TESTS})
 
   add_test(
     NAME ${profiler_test_name}
-    COMMAND $<TARGET_FILE:toit.run> ${profiler_test} $<TARGET_FILE:toit.run> ${profiler_input}
+    COMMAND "${TEST_TOITRUN}" ${profiler_test} "${TEST_TOITRUN}" ${profiler_input}
     )
   set_tests_properties(${profiler_test_name} PROPERTIES TIMEOUT 40)
 endforeach()

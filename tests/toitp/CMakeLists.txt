@@ -44,14 +44,14 @@ foreach(file ${TOITP_TESTS})
   file(RELATIVE_PATH toitp_test_name ${TOIT_SDK_SOURCE_DIR} ${toitp_test})
   add_test(
     NAME ${toitp_test_name}
-    COMMAND $<TARGET_FILE:toit.run> ${toitp_test} ${snap} $<TARGET_FILE:toit.run> ${TOIT_SDK_SOURCE_DIR}/tools/toitp.toit
+    COMMAND "${TEST_TOITRUN}" ${toitp_test} ${snap} "${TEST_TOITRUN}" ${TOIT_SDK_SOURCE_DIR}/tools/toitp.toit
     )
   set_tests_properties(${toitp_test_name} PROPERTIES TIMEOUT 40)
 
   file(RELATIVE_PATH snap_test_name ${TOIT_SDK_SOURCE_DIR} ${snap_test})
   add_test(
     NAME ${snap_test_name}
-    COMMAND $<TARGET_FILE:toit.run> ${snap_test} ${snap}
+    COMMAND "${TEST_TOITRUN}" ${snap_test} ${snap}
     )
   set_tests_properties(${snap_test_name} PROPERTIES TIMEOUT 40)
 endforeach()

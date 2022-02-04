@@ -29,7 +29,7 @@ foreach(file ${MINUS_S_TESTS})
   add_test(
     NAME ${test_name}
     COMMAND ${CMAKE_COMMAND}
-        -DTOITVM=$<TARGET_FILE:toit.run>
+        -DTOITVM="${TEST_TOITRUN}"
         -DTEST=${relative}
         -DGOLD=${gold_file}
         -DTMP=${CMAKE_BINARY_DIR}/tmp
@@ -48,13 +48,13 @@ foreach(file ${MINUS_S_TESTS})
     TARGET ${generate_gold}
     COMMAND ${CMAKE_COMMAND}
         -DUPDATE_GOLD=true
-        -DTOITVM=$<TARGET_FILE:toit.run>
+        -DTOITVM="${TEST_TOITRUN}"
         -DTEST=${relative}
         -DGOLD=${gold_file}
         -DTMP=${CMAKE_BINARY_DIR}/tmp
         -P ${CMAKE_CURRENT_SOURCE_DIR}/run.cmake
     WORKING_DIRECTORY ${TOIT_SDK_SOURCE_DIR}
-    DEPENDS $<TARGET_FILE:toit.run>
+    DEPENDS "${TEST_TOITRUN}"
   )
   add_dependencies(update_minus_s_gold ${generate_gold})
 endforeach()
