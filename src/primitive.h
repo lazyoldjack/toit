@@ -331,6 +331,14 @@ namespace toit {
   PRIMITIVE(image_config, 0)                 \
   PRIMITIVE(get_mac_address, 0)              \
   PRIMITIVE(rtc_user_bytes, 0)               \
+  PRIMITIVE(touch_init, 0)                   \
+  PRIMITIVE(touch_deinit, 0)                 \
+  PRIMITIVE(touch_read, 1)                   \
+  PRIMITIVE(touch_read_raw, 1)               \
+  PRIMITIVE(touch_read_filtered, 1)          \
+  PRIMITIVE(touch_filter_start, 1)           \
+  PRIMITIVE(touch_set_filter_period, 1)      \
+  PRIMITIVE(touch_config, 2)                 \
 
 #define MODULE_I2C(PRIMITIVE)                \
   PRIMITIVE(init, 3)                         \

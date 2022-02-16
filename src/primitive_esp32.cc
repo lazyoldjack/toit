@@ -59,8 +59,8 @@
   #include <soc/sens_reg.h>
   #include <esp32/rom/rtc.h>
   #include <esp32/rom/ets_sys.h>
-  #include <driver/touch_sensor.h>
   #include <esp32/ulp.h>
+  #include <driver/touch_sensor.h>
 #endif
 
 #include "esp_partition.h"
@@ -142,6 +142,97 @@ PRIMITIVE(rtc_user_bytes) {
   if (result == null) return error;
 
   return result;
+}
+
+PRIMITIVE(touch_init) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  if (touch_pad_init() != ESP_OK) return Smi::from(-1);
+
+  if (touch_pad_set_voltage(TOUCH_HVOLT_2V4, TOUCH_LVOLT_0V5, TOUCH_HVOLT_ATTEN_1V)) return Smi::from(-1);
+
+  return Smi::from(0);
+#endif
+}
+
+PRIMITIVE(touch_deinit) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  if (touch_pad_deinit() != ESP_OK) return Smi::from(-1);
+
+  return Smi::from(0);
+#endif
+}
+
+PRIMITIVE(touch_read) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  ARGS(int, pin)
+  uint16_t val;
+  if (touch_pad_read((touch_pad_t)(pin), &val) != ESP_OK) return Smi::from(-1);
+
+  return Smi::from((int) val);
+#endif
+}
+
+PRIMITIVE(touch_config) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  ARGS(int, pin, int, value);
+  if (touch_pad_config((touch_pad_t)(pin), value) != ESP_OK) return Smi::from(-1);
+
+  return null;
+#endif
+}
+
+PRIMITIVE(touch_filter_start) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  ARGS(int, period);
+  if (touch_pad_filter_start(period) != ESP_OK) return Smi::from(-1);
+
+  return Smi::from(0);
+#endif
+}
+
+PRIMITIVE(touch_set_filter_period) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  ARGS(int, period);
+  if (touch_pad_set_filter_period(period) != ESP_OK) return Smi::from(-1);
+
+  return Smi::from(0);
+#endif
+}
+
+PRIMITIVE(touch_read_raw) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  ARGS(int, pin)
+  uint16_t val;
+  if (touch_pad_read_raw_data((touch_pad_t)(pin), &val) != ESP_OK) return Smi::from(-1);
+
+  return Smi::from((int) val);
+#endif
+}
+
+PRIMITIVE(touch_read_filtered) {
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    UNIMPLEMENTED_PRIMITIVE;
+#else
+  ARGS(int, pin)
+  uint16_t val;
+  if (touch_pad_read_filtered((touch_pad_t)(pin), &val) != ESP_OK) return Smi::from(-1);
+
+  return Smi::from((int) val);
+#endif
 }
 
 } // namespace toit
